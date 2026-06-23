@@ -119,17 +119,13 @@ const emailTemplates = {
   }),
 };
 
-const transporter = createTransporter();
-
-console.log('Testing SMTP...');
-await transporter.verify();
-console.log('SMTP verified!');
 const sendEmail = async (to, template) => {
   try {
     const transporter = createTransporter();
 
+    console.log('Testing SMTP...');
     await transporter.verify();
-    console.log('✅ SMTP connection successful');
+    console.log('SMTP verified!');
 
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,

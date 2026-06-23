@@ -249,7 +249,7 @@ const resendVerification = async (req, res) => {
     );
 
     const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
-    await sendEmail(email, emailTemplates.verification(user.first_name, otp, verifyLink));
+    
 
     res.json({ success: true, message: 'Verification email resent.' });
   } catch (error) {

@@ -128,7 +128,7 @@ const sendEmail = async (to, template) => {
     console.log(`📧 Email sent to ${to}`);
     return true;
   } catch (error) {
-    console.error('Email send error:', error.message);
+    console.error('Email send error:', error);
     return false;
   }
 };

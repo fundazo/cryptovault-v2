@@ -3,10 +3,8 @@ const nodemailer = require('nodemailer');
 const createTransporter = () => {
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: 587,
-    secure: false,
-    requireTLS: true,
-
+    port: 465,
+    secure: true, // true for 465, false for other ports
     connectionTimeout: 60000,
     greetingTimeout: 60000,
     socketTimeout: 60000,

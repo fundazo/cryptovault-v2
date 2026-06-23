@@ -125,12 +125,17 @@ const emailTemplates = {
 const sendEmail = async (to, template) => {
   try {
     const transporter = createTransporter();
+
+    await transporter.verify();
+    console.log('✅ SMTP connection successful');
+
     await transporter.sendMail({
-      from: process.env.EMAIL_FROM || 'CryptoVault <noreply@cryptovault.com>',
+      from: process.env.EMAIL_FROM,
       to,
       subject: template.subject,
       html: template.html,
     });
+
     console.log(`📧 Email sent to ${to}`);
     return true;
   } catch (error) {

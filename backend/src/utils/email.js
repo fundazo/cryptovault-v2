@@ -2,16 +2,15 @@ const nodemailer = require('nodemailer');
 
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    connectionTimeout: 60000,
-    greetingTimeout: 60000,
-    socketTimeout: 60000,
-
+    host: 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 };
@@ -120,6 +119,11 @@ const emailTemplates = {
   }),
 };
 
+const transporter = createTransporter();
+
+console.log('Testing SMTP...');
+await transporter.verify();
+console.log('SMTP verified!');
 const sendEmail = async (to, template) => {
   try {
     const transporter = createTransporter();

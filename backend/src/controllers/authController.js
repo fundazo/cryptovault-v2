@@ -221,7 +221,7 @@ const resetPassword = async (req, res) => {
 const resendVerification = async (req, res) => {
   try {
     const { email } = req.body;
-
+    
     const result = await pool.query(
       'SELECT id, first_name, is_verified FROM users WHERE email = $1',
       [email]
@@ -250,7 +250,7 @@ const resendVerification = async (req, res) => {
     );
 
     const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
-    
+    await sendEmail(email, emailTemplates.verification(user.first_name, otp, verifyLink));
 
     res.json({ success: true, message: 'Verification email resent.' });
   } catch (error) {

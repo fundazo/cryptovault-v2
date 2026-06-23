@@ -31,17 +31,16 @@ const register = async (req, res) => {
       [user.id, token, otp, expiresAt]
     );
 
-    const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
+const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
 
-console.log('OTP:', otp);
-console.log('Verify Link:', verifyLink);
-
-// await sendEmail(email, emailTemplates.verification(user.first_name, otp, verifyLink));
+await sendEmail(
+  email,
+  emailTemplates.verification(user.first_name, otp, verifyLink)
+);
 
 res.json({
   success: true,
-  message: 'Verification email resent.',
-  otp
+  message: 'Verification email resent.'
 });
   } catch (error) {
     console.error('Register error:', error);

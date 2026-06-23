@@ -233,6 +233,7 @@ const resendVerification = async (req, res) => {
 
     const user = result.rows[0];
     const otp = generateOTP();
+    console.log('OTP:', otp);
     const token = generateSecureToken();
     const expiresAt = addMinutes(15);
 

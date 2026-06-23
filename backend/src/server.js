@@ -5,7 +5,7 @@ const rateLimit = require('express-rate-limit');
 const routes = require('./routes');
 
 const app = express();
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 const PORT = process.env.PORT || 5000;
 
 // CORS

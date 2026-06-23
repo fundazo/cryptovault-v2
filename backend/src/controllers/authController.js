@@ -32,7 +32,6 @@ const register = async (req, res) => {
     );
 
     const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
-    await sendEmail(email, emailTemplates.verification(first_name, otp, verifyLink));
 
     res.status(201).json({
       success: true,

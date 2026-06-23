@@ -33,11 +33,16 @@ const register = async (req, res) => {
 
     const verifyLink = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
 
-    res.status(201).json({
-      success: true,
-      message: 'Registration successful. Please check your email to verify your account.',
-      data: { userId: user.id, email: user.email },
-    });
+console.log('OTP:', otp);
+console.log('Verify Link:', verifyLink);
+
+// await sendEmail(email, emailTemplates.verification(user.first_name, otp, verifyLink));
+
+res.json({
+  success: true,
+  message: 'Verification email resent.',
+  otp
+});
   } catch (error) {
     console.error('Register error:', error);
     res.status(500).json({ success: false, message: 'Registration failed' });

@@ -120,43 +120,95 @@ const AdminTable = ({ type }) => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/5">
-                  {['User','Currency','Amount', type==='deposit'?'TXID':'Destination','Date','Status','Action'].map(h=>(
-                    <th key={h} className="text-left px-4 py-3.5 text-xs font-semibold text-slate-600 uppercase tracking-wider first:pl-6 last:pr-6">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                {items.map(item => (
-                  <tr key={item.id} className="hover:bg-white/2 transition-all">
-                    <td className="px-4 py-3.5 pl-6">
-                      <p className="text-sm font-medium text-white">{item.first_name} {item.last_name}</p>
-                      <p className="text-xs text-slate-600">{item.email}</p>
-                    </td>
-                    <td className="px-4 py-3.5">
-                      <div className="flex items-center gap-2"><CryptoIcon symbol={item.currency} size="xs"/><span className="text-sm text-white">{item.currency}</span></div>
-                    </td>
-                    <td className="px-4 py-3.5">
-                      <span className="text-sm font-semibold font-mono text-white">{parseFloat(item.amount).toFixed(6)}</span>
-                    </td>
-                    <td className="px-4 py-3.5 max-w-[140px]">
-                      <span className="text-xs font-mono text-slate-500 truncate block">
-                        {type==='deposit' ? item.txid?.slice(0,18)+'...' : item.destination_address?.slice(0,18)+'...'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3.5 text-xs text-slate-600">{new Date(item.created_at).toLocaleDateString()}</td>
-                    <td className="px-4 py-3.5"><Badge variant={item.status}>{item.status}</Badge></td>
-                    <td className="px-4 py-3.5 pr-6">
-                      {item.status==='pending'
-                        ? <Button size="xs" onClick={()=>setReviewItem(item)}>Review</Button>
-                        : item.admin_note && <span className="text-xs text-slate-600 italic">{item.admin_note.slice(0,20)}...</span>
-                      }
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+  <thead>
+    <tr className="border-b border-white/5">
+      {['User','Currency','Amount', type==='deposit'?'TXID':'Destination','Date','Status','Action'].map(h => (
+        <th
+          key={h}
+          className="text-left px-4 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider first:pl-6 last:pr-6"
+        >
+          {h}
+        </th>
+      ))}
+    </tr>
+  </thead>
+
+  <tbody className="divide-y divide-white/5">
+    {items.map(item => (
+      <tr
+        key={item.id}
+        className="h-16 hover:bg-white/2 transition-all"
+      >
+        <td className="px-4 py-4 pl-6 align-middle">
+          <div>
+            <p className="text-sm font-medium text-white">
+              {item.first_name} {item.last_name}
+            </p>
+            <p className="text-xs text-slate-600 truncate">
+              {item.email}
+            </p>
+          </div>
+        </td>
+
+        <td className="px-4 py-4 align-middle">
+          <div className="flex items-center gap-2">
+            <CryptoIcon symbol={item.currency} size="xs" />
+            <span className="text-sm text-white">
+              {item.currency}
+            </span>
+          </div>
+        </td>
+
+        <td className="px-4 py-4 align-middle">
+          <span className="text-sm font-semibold font-mono text-white">
+            {parseFloat(item.amount).toFixed(6)}
+          </span>
+        </td>
+
+        <td className="px-4 py-4 max-w-[180px] align-middle">
+          <span className="text-xs font-mono text-slate-500 truncate block">
+            {type === 'deposit'
+              ? item.txid?.slice(0, 22) + '...'
+              : item.destination_address?.slice(0, 22) + '...'}
+          </span>
+        </td>
+
+        <td className="px-4 py-4 align-middle">
+          <span className="text-xs text-slate-600">
+            {new Date(item.created_at).toLocaleDateString()}
+          </span>
+        </td>
+
+        <td className="px-4 py-4 align-middle">
+          <div className="flex items-center">
+            <Badge variant={item.status}>
+              {item.status}
+            </Badge>
+          </div>
+        </td>
+
+        <td className="px-4 py-4 pr-6 align-middle">
+          {item.status === 'pending' ? (
+            <Button
+              size="xs"
+              onClick={() => setReviewItem(item)}
+            >
+              Review
+            </Button>
+          ) : item.admin_note ? (
+            <span className="text-xs text-slate-600 italic">
+              {item.admin_note.slice(0, 20)}...
+            </span>
+          ) : (
+            <span className="text-xs text-slate-700">
+              —
+            </span>
+          )}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
           </div>
         )}
       </Card>

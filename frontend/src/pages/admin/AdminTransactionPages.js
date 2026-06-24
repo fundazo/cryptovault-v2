@@ -97,7 +97,7 @@ const AdminTable = ({ type }) => {
   const title = type === 'deposit' ? 'Deposits' : 'Withdrawals';
 
   return (
-    <div className="space-y-6 page-enter">
+    <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl font-bold text-white">Manage {title}</h1>
         <p className="text-slate-500 mt-1">Review and process {title.toLowerCase()}</p>

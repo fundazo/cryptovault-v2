@@ -130,14 +130,15 @@ const DashboardLayout = ({ children }) => {
     { to: '/dashboard/profile',      icon: '○', label: 'Profile' },
   ];
 
-  const adminNav = [
-    { to: '/admin',              icon: '⬡', label: 'Overview' },
-    { to: '/admin/users',        icon: '◉', label: 'Users' },
-    { to: '/admin/deposits',     icon: '↓', label: 'Deposits' },
-    { to: '/admin/withdrawals',  icon: '↑', label: 'Withdrawals' },
-    { to: '/admin/transactions', icon: '⇄', label: 'Transactions' },
-    { to: '/admin/wallets',      icon: '◎', label: 'Wallets' },
-  ];
+const adminNav = [
+  { to: '/admin', icon: '⬡', label: 'Overview' },
+  { to: '/admin/users', icon: '◉', label: 'Users' },
+  { to: '/admin/deposits', icon: '↓', label: 'Deposits' },
+  { to: '/admin/withdrawals', icon: '↑', label: 'Withdrawals' },
+  { to: '/admin/transactions', icon: '⇄', label: 'Transactions' },
+  { to: '/admin/wallets', icon: '◎', label: 'Wallets' },
+  { to: '/change-password', icon: '🔒', label: 'Change Password' },
+];
 
   const navItems = isAdmin ? adminNav : userNav;
 

@@ -13,7 +13,7 @@ const register = async (req, res) => {
       return res.status(409).json({ success: false, message: 'Email already registered' });
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 9);
     const userResult = await client.query(
       `INSERT INTO users (email, password_hash, first_name, last_name, phone)
        VALUES ($1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name`,
@@ -203,7 +203,7 @@ const resetPassword = async (req, res) => {
     }
 
     const reset = result.rows[0];
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 9);
 
     await client.query('UPDATE users SET password_hash = $1 WHERE id = $2', [passwordHash, reset.user_id]);
     await client.query('UPDATE password_resets SET used = true WHERE id = $1', [reset.id]);

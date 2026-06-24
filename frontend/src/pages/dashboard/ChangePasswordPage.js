@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { userAPI } from '../services/api';
+import { userAPI } from '../../utils/api';
 
 export default function ChangePasswordPage() {
   const [current_password, setCurrentPassword] = useState('');

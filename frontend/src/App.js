@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Spinner } from './components/ui';
 import DashboardLayout from './components/dashboard/DashboardLayout';
-
+import ChangePasswordPage from './pages/dashboard/ChangePasswordPage';
 
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';

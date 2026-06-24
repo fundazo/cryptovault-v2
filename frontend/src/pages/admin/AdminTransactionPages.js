@@ -115,7 +115,7 @@ const AdminTable = ({ type }) => {
         </div>
       </Card>
 
-      <Card className="overflow-hidden">
+      <Card>
         {loading ? <Spinner className="py-16" size="lg"/> : items.length === 0 ? (
           <EmptyState icon={type==='deposit'?'↓':'↑'} title={`No ${status||''} ${title.toLowerCase()}`}/>
         ) : (

@@ -6,6 +6,7 @@ import { Card, Badge, Button, Input, Modal, Spinner, EmptyState, CryptoIcon } fr
 const ReviewModal = ({ item, type, onClose, onSuccess }) => {
   const [form, setForm] = useState({ status: 'approved', admin_note: '', txid: '' });
   const [loading, setLoading] = useState(false);
+  <form onSubmit={handleSubmit} className="space-y-4"></form>
 
   const handleSubmit = async (e) => {
     e.preventDefault(); setLoading(true);
@@ -20,11 +21,11 @@ const ReviewModal = ({ item, type, onClose, onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="rounded-xl bg-white/3 border border-white/5 p-4 space-y-3">
+      <div className="rounded-xl bg-white/3 border border-white/5 p-3 sm:p-4 space-y-2">
         <div className="flex items-center gap-3">
           <CryptoIcon symbol={item.currency} size="md"/>
           <div>
-            <p className="font-semibold text-white">{parseFloat(item.amount).toFixed(8)} {item.currency}</p>
+            <p className="font-semibold text-white text-sm sm:text-base">{parseFloat(item.amount).toFixed(8)} {item.currency}</p>
             <p className="text-sm text-slate-500">{item.first_name} {item.last_name} · {item.email}</p>
           </div>
         </div>

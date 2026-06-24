@@ -79,13 +79,16 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center p-4"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
     >
-      <div className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card flex flex-col max-h-[calc(100vh-2rem)] mt-10 mb-6`}>
+      <div
+        className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card mx-auto mt-12 mb-8`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {title && (
           <div className="flex items-center justify-between p-5 border-b border-white/5">
-            <h3 className="text-lg font-semibold text-white font-display">
+            <h3 className="text-lg font-semibold text-white">
               {title}
             </h3>
 
@@ -98,13 +101,14 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-5">
+        <div className="p-5">
           {children}
         </div>
       </div>
     </div>
   );
 };
+
 export const EmptyState = ({ icon, title, description, action }) => (
   <div className="flex flex-col items-center justify-center py-10 text-center px-4">
     <div className="text-3xl mb-2 opacity-50">{icon||'📭'}</div>

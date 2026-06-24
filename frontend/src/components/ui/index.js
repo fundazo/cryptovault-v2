@@ -79,33 +79,35 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm overflow-y-auto"
-      onClick={onClose}
+  className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm overflow-y-auto"
+  onClick={onClose}
+>
+  <div
+    className="flex min-h-screen justify-center pt-6 sm:pt-12 pb-6 px-4"
+    onClick={(e) => e.stopPropagation()}
+  >
+    <div
+      className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card`}
     >
-      <div
-        className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card mx-auto mt-12 mb-8`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {title && (
-          <div className="flex items-center justify-between p-5 border-b border-white/5">
-            <h3 className="text-lg font-semibold text-white">
-              {title}
-            </h3>
+      {title && (
+        <div className="flex items-center justify-between p-5 border-b border-white/5">
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
 
-            <button
-              onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-slate-500 hover:text-white"
-            >
-              ✕
-            </button>
-          </div>
-        )}
-
-        <div className="p-5">
-          {children}
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5"
+          >
+            ✕
+          </button>
         </div>
+      )}
+
+      <div className="p-5">
+        {children}
       </div>
     </div>
+  </div>
+</div>
   );
 };
 

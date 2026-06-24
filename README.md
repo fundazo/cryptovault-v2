@@ -80,7 +80,7 @@ After migration, the admin account is created:
 
 | Role  | Email                     | Password      |
 |-------|---------------------------|---------------|
-| Admin | admin@cryptovault.com     | Emma@1103  |
+| Admin | admin@cryptovault.com     | Admin@123456  |
 
 > ⚠️ **Change admin credentials immediately in production!**
 

@@ -58,4 +58,4 @@ cd frontend && npm start
 
 Frontend: http://localhost:3000
 Backend:  http://localhost:5000
-Admin:    admin@cryptovault.com / Emma@1103
+Admin:    admin@cryptovault.com / Admin@123456

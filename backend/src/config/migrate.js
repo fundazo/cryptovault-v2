@@ -148,8 +148,8 @@ const migrate = async () => {
     // Default admin
     const bcrypt = require('bcryptjs');
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@cryptovault.com';
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Emma@1103';
-    const hashedPassword = await bcrypt.hash(adminPassword, 9);
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@123456';
+    const hashedPassword = await bcrypt.hash(adminPassword, 12);
 
     await client.query(`
       INSERT INTO users (email, password_hash, first_name, last_name, role, is_verified)

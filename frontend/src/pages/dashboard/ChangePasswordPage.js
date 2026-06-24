@@ -6,10 +6,16 @@ import toast from 'react-hot-toast';
 export default function ChangePasswordPage() {
   const [current_password, setCurrentPassword] = useState('');
   const [new_password, setNewPassword] = useState('');
+  const [confirm_password, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (new_password !== confirm_password) {
+      toast.error('New passwords do not match');
+      return;
+    }
 
     try {
       setLoading(true);
@@ -23,10 +29,11 @@ export default function ChangePasswordPage() {
 
       setCurrentPassword('');
       setNewPassword('');
+      setConfirmPassword('');
     } catch (err) {
       toast.error(
         err.response?.data?.message ||
-        'Failed to change password'
+          'Failed to change password'
       );
     } finally {
       setLoading(false);
@@ -42,7 +49,8 @@ export default function ChangePasswordPage() {
           </h1>
 
           <p className="text-slate-500 mt-1">
-            Update your account password to keep your CryptoVault account secure.
+            Update your account password to keep your CryptoVault account
+            secure.
           </p>
         </div>
 
@@ -65,13 +73,27 @@ export default function ChangePasswordPage() {
             required
           />
 
+          <Input
+            label="Confirm New Password"
+            type="password"
+            placeholder="Re-enter new password"
+            value={confirm_password}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+
           <div className="rounded-xl border border-yellow-500/15 bg-yellow-500/5 p-3">
             <p className="text-xs text-yellow-400">
-              ⚠ After changing your password, use the new password the next time you log in.
+              ⚠ After changing your password, you'll need to use your new
+              password the next time you log in.
             </p>
           </div>
 
-          <Button type="submit" loading={loading}>
+          <Button
+            type="submit"
+            loading={loading}
+            className="w-full"
+          >
             Change Password
           </Button>
         </form>

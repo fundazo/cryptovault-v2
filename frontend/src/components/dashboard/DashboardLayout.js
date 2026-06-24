@@ -137,7 +137,7 @@ const adminNav = [
   { to: '/admin/withdrawals', icon: '↑', label: 'Withdrawals' },
   { to: '/admin/transactions', icon: '⇄', label: 'Transactions' },
   { to: '/admin/wallets', icon: '◎', label: 'Wallets' },
-  { to: '/change-password', icon: '🔒', label: 'Change Password' },
+  { to: '/change-password', icon: '⚙', label: 'Change Password' }
 ];
 
   const navItems = isAdmin ? adminNav : userNav;
@@ -173,9 +173,6 @@ const adminNav = [
             </div>
           </div>
         )}
-        <Link to="/change-password">
-        Change Password
-        </Link>
         <button onClick={handleLogout} className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all ${collapsed ? 'justify-center' : ''}`}>
           <span>⎋</span>
           {!collapsed && <span>Sign out</span>}

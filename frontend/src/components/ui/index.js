@@ -71,9 +71,9 @@ export const Modal = ({ isOpen, onClose, title, children, size='md' }) => {
   if (!isOpen) return null;
   const sizes = { sm:'max-w-sm', md:'max-w-lg', lg:'max-w-2xl', xl:'max-w-4xl' };
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm fade-in"/>
-      <div className={`relative w-full ${sizes[size]} glass-card shadow-card page-enter overflow-hidden rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto`} onClick={e=>e.stopPropagation()}>
+      <div className={`relative w-full ${sizes[size]} glass-card shadow-card page-enter overflow-y-auto rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto`} onClick={e=>e.stopPropagation()}>
         {title && (
           <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5 sticky top-0" style={{background:'rgba(17,24,39,0.95)'}}>
             <h3 className="text-base sm:text-lg font-semibold text-white font-display">{title}</h3>

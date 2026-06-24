@@ -79,13 +79,10 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center p-4"
       onClick={onClose}
     >
-      <div
-        className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card my-auto flex flex-col max-h-[calc(100vh-2rem)]`}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card flex flex-col max-h-[calc(100vh-2rem)] mt-10 mb-6`}>
         {title && (
           <div className="flex items-center justify-between p-5 border-b border-white/5">
             <h3 className="text-lg font-semibold text-white font-display">

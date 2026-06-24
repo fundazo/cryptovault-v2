@@ -212,7 +212,7 @@ const adminNav = [
         <PriceTicker />
 
         {/* Mobile topbar */}
-        <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between px-4 py-3 border-b border-white/5"
+        <header className="lg:hidden z-10 flex items-center justify-between px-4 py-3 border-b border-white/5"
           style={{ background: 'rgba(8,11,20,0.97)', backdropFilter: 'blur(20px)' }}>
           <button onClick={() => setSidebarOpen(true)} className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/5 transition-all">
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

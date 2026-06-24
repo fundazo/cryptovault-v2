@@ -73,14 +73,14 @@ export const Modal = ({ isOpen, onClose, title, children, size='md' }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm fade-in"/>
-      <div className={`relative w-full ${sizes[size]} glass-card shadow-card page-enter rounded-t-2xl sm:rounded-2xl max-h-[85vh] flex flex-col`} onClick={e=>e.stopPropagation()}>
+      <div className={`relative w-full ${sizes[size]} glass-card shadow-card page-enter rounded-2xl max-h-[90vh] overflow-y-auto`} onClick={e => e.stopPropagation()}>
         {title && (
-          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5 sticky top-0" style={{background:'rgba(17,24,39,0.95)'}}>
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5" style={{background:'rgba(17,24,39,0.95)'}}>
             <h3 className="text-base sm:text-lg font-semibold text-white font-display">{title}</h3>
             <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5">✕</button>
           </div>
         )}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1">{children}</div>
+        <div className="p-4 sm:p-6 overflow-y-auto">{children}</div>
       </div>
     </div>
   );

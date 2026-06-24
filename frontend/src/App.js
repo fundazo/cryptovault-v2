@@ -7,6 +7,7 @@ import { Spinner } from './components/ui';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import ChangePasswordPage from './pages/dashboard/ChangePasswordPage';
 
+
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import VerifyEmailPage from './pages/auth/VerifyEmailPage';
@@ -88,7 +89,16 @@ const App = () => (
           <Route path="/admin/withdrawals" element={<AdminRoute><W><AdminWithdrawalsPage/></W></AdminRoute>}/>
           <Route path="/admin/transactions" element={<AdminRoute><W><AdminAllTransactionsPage/></W></AdminRoute>}/>
           <Route path="/admin/wallets" element={<AdminRoute><W><AdminWalletsPage/></W></AdminRoute>}/>
-          <Route path="/change-password" element={<ChangePasswordPage />} />
+          <Route
+  path="/change-password"
+  element={
+    <PrivateRoute>
+      <W>
+        <ChangePasswordPage />
+      </W>
+    </PrivateRoute>
+  }
+/>
 
           <Route path="/" element={<Navigate to="/login" replace/>}/>
           <Route path="*" element={<Navigate to="/login" replace/>}/>

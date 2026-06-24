@@ -157,11 +157,6 @@ const DashboardLayout = ({ children }) => {
       {/* Nav */}
       <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
         {navItems.map(item => <NavItem key={item.to} {...item} collapsed={collapsed} />)}
-        {isAdmin && (
-          <div className="pt-2 mt-2 border-t border-white/5">
-            <NavItem to="/dashboard" icon="↩" label="User View" collapsed={collapsed} />
-          </div>
-        )}
       </nav>
 
       {/* Bottom */}
@@ -177,7 +172,9 @@ const DashboardLayout = ({ children }) => {
             </div>
           </div>
         )}
-        
+        <Link to="/change-password">
+        Change Password
+        </Link>
         <button onClick={handleLogout} className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all ${collapsed ? 'justify-center' : ''}`}>
           <span>⎋</span>
           {!collapsed && <span>Sign out</span>}

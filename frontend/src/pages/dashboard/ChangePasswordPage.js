@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { userAPI } from '../../utils/api';
 
 export default function ChangePasswordPage() {
@@ -32,27 +32,35 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div style={{ padding: '20px' }}>
       <h2>Change Password</h2>
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Current Password"
-          value={current_password}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-          required
-        />
+        <div>
+          <input
+            type="password"
+            placeholder="Current Password"
+            value={current_password}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            required
+          />
+        </div>
 
-        <input
-          type="password"
-          placeholder="New Password"
-          value={new_password}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
+        <div style={{ marginTop: '10px' }}>
+          <input
+            type="password"
+            placeholder="New Password"
+            value={new_password}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+        </div>
 
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          style={{ marginTop: '15px' }}
+        >
           {loading ? 'Changing...' : 'Change Password'}
         </button>
       </form>

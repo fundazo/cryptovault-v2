@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { userAPI } from '../../utils/api';
+import { Button, Card, Input } from '../../components/ui';
 import toast from 'react-hot-toast';
 
 export default function ChangePasswordPage() {
@@ -19,70 +20,62 @@ export default function ChangePasswordPage() {
       });
 
       toast.success(res.data.message);
-      
+
       setCurrentPassword('');
       setNewPassword('');
     } catch (err) {
       toast.error(
-  err.response?.data?.message ||
-  'Failed to change password'
-);
+        err.response?.data?.message ||
+        'Failed to change password'
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-  <div className="max-w-lg mx-auto">
-    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-      <h1 className="text-2xl font-bold text-white mb-2">
-        Change Password
-      </h1>
+    <div className="max-w-lg mx-auto page-enter">
+      <Card className="p-6">
+        <div className="mb-6">
+          <h1 className="font-display text-2xl font-bold text-white">
+            Change Password
+          </h1>
 
-      <p className="text-slate-400 text-sm mb-6">
-        Update your account password to keep your CryptoVault account secure.
-      </p>
+          <p className="text-slate-500 mt-1">
+            Update your account password to keep your CryptoVault account secure.
+          </p>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-sm text-slate-400 mb-2">
-            Current Password
-          </label>
-
-          <input
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            label="Current Password"
             type="password"
             placeholder="Enter current password"
             value={current_password}
             onChange={(e) => setCurrentPassword(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
           />
-        </div>
 
-        <div>
-          <label className="block text-sm text-slate-400 mb-2">
-            New Password
-          </label>
-
-          <input
+          <Input
+            label="New Password"
             type="password"
             placeholder="Enter new password"
             value={new_password}
             onChange={(e) => setNewPassword(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
           />
-        </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold hover:opacity-90 transition disabled:opacity-50"
-        >
-          {loading ? 'Changing Password...' : 'Change Password'}
-        </button>
-      </form>
+          <div className="rounded-xl border border-yellow-500/15 bg-yellow-500/5 p-3">
+            <p className="text-xs text-yellow-400">
+              ⚠ After changing your password, use the new password the next time you log in.
+            </p>
+          </div>
+
+          <Button type="submit" loading={loading}>
+            Change Password
+          </Button>
+        </form>
+      </Card>
     </div>
-  </div>
-);
+  );
 }

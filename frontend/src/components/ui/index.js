@@ -67,55 +67,42 @@ export const Spinner = ({ size='md', className='' }) => {
   );
 };
 
-export const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
+export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
   if (!isOpen) return null;
 
   const sizes = {
-    sm: 'max-w-sm',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
+    sm: "max-w-sm",
+    md: "max-w-lg",
+    lg: "max-w-2xl",
+    xl: "max-w-4xl",
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto"
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center p-4 overflow-y-auto"
       onClick={onClose}
     >
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm fade-in" />
+      <div
+        className={`relative w-full ${sizes[size]} glass-card rounded-2xl shadow-card my-auto flex flex-col max-h-[calc(100vh-2rem)]`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {title && (
+          <div className="flex items-center justify-between p-5 border-b border-white/5">
+            <h3 className="text-lg font-semibold text-white font-display">
+              {title}
+            </h3>
 
-      {/* Wrapper */}
-      <div className="relative flex min-h-full justify-center px-4 py-6 sm:py-10">
-        <div
-          className={`relative w-full ${sizes[size]} glass-card shadow-card rounded-2xl max-h-[calc(100vh-3rem)] overflow-hidden page-enter`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header */}
-          {title && (
-            <div
-              className="flex items-center justify-between px-5 py-4 border-b border-white/5"
-              style={{
-                background: 'rgba(17,24,39,.95)',
-              }}
+            <button
+              onClick={onClose}
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-slate-500 hover:text-white"
             >
-              <h3 className="text-lg font-semibold text-white font-display">
-                {title}
-              </h3>
-
-              <button
-                onClick={onClose}
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-white hover:bg-white/5 transition"
-              >
-                ✕
-              </button>
-            </div>
-          )}
-
-          {/* Body */}
-          <div className="overflow-y-auto max-h-[calc(100vh-8rem)] p-5 sm:p-6">
-            {children}
+              ✕
+            </button>
           </div>
+        )}
+
+        <div className="flex-1 overflow-y-auto p-5">
+          {children}
         </div>
       </div>
     </div>

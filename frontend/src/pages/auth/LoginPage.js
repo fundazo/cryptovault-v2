@@ -23,7 +23,9 @@ const LoginPage = () => {
       navigate(user.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {
       const data = err.response?.data;
-      if (data?.code === 'EMAIL_NOT_VERIFIED') {
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        toast.error('The request took too long. Please try again.');
+      } else if (data?.code === 'EMAIL_NOT_VERIFIED') {
         toast.error('Please verify your email first.');
         navigate(`/verify-email?resend=${encodeURIComponent(form.email)}`);
       } else {

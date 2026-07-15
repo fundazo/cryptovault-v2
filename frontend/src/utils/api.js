@@ -1,9 +1,7 @@
 import axios from 'axios';
 
+const API_BASE = process.env.REACT_APP_API_URL || '/api/v1';
 
-const API_BASE = process.env.REACT_APP_API_URL || 'https://cryptovault-backend-1tft.onrender.com/api/v1';
-
-console.log('API_BASE =', API_BASE);
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },

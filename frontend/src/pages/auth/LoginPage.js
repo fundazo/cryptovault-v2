@@ -54,27 +54,23 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-slate-400">Email</label>
-              <div className="relative">
-                <div className="pointer-events-none absolute left-3.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg bg-slate-800/70 text-slate-400">
-                  <FaEnvelope className="text-sm" />
-                </div>
+              <div className="flex items-center rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3">
+                <FaEnvelope className="mr-3 text-slate-500" />
                 <input type="email" placeholder="you@example.com" value={form.email}
                   onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required
-                  className="input-field pl-14 pr-11" autoComplete="email" />
+                  className="w-full bg-transparent p-0 text-sm text-slate-100 placeholder:text-slate-500 outline-none" autoComplete="email" />
               </div>
             </div>
 
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-slate-400">Password</label>
-              <div className="relative">
-                <div className="pointer-events-none absolute left-3.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg bg-slate-800/70 text-slate-400">
-                  <FaLock className="text-sm" />
-                </div>
+              <div className="flex items-center rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3">
+                <FaLock className="mr-3 text-slate-500" />
                 <input type={showPass ? 'text' : 'password'} placeholder="••••••••" value={form.password}
                   onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required
-                  className="input-field pl-14 pr-11" autoComplete="current-password" />
+                  className="w-full bg-transparent p-0 pr-8 text-sm text-slate-100 placeholder:text-slate-500 outline-none" autoComplete="current-password" />
                 <button type="button" onClick={() => setShowPass(s => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
+                  className="ml-2 text-slate-500 hover:text-slate-300 transition-colors">
                   {showPass ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>

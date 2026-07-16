@@ -54,7 +54,7 @@ const AdminUsersPage = () => {
 
       <Card className="p-4">
         <Input placeholder="Search by name or email..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }}
-          icon={<FaSearch className="text-sm" />} />
+           />
       </Card>
 
       <Card className="overflow-hidden">

@@ -132,9 +132,6 @@ const total = getTotalUSD(balances, prices);
                 <p className="mt-1 font-display text-3xl sm:text-4xl font-semibold text-white leading-tight">
                   ${formatCompactNumber(total)}
                 </p>
-                <div className="mt-3">
-                  <p className="text-sm text-slate-400">Your total portfolio value across connected wallets</p>
-                </div>
               </div>
             </div>
 
@@ -186,7 +183,7 @@ const total = getTotalUSD(balances, prices);
           )}
         </Card>
 
-        <Card className="p-4 sm:p-5">
+        <Card className="p-4 sm:p-5 space-y-2">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-display font-semibold text-white text-sm sm:text-base">Market</h3>
             <span className="flex items-center gap-1 text-xs text-emerald-400">
@@ -212,7 +209,7 @@ const total = getTotalUSD(balances, prices);
           </div>
           {transactions.length === 0
             ? <EmptyState icon="⇄" title="No activity yet"/>
-            : <div>{transactions.map(tx => <TxRow key={tx.id} tx={tx}/>)}</div>
+            : <div className="space-y-2">{transactions.map(tx => <TxRow key={tx.id} tx={tx}/>)}</div>
           }
         </Card>
 

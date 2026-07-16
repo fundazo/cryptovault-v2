@@ -119,14 +119,14 @@ const total = getTotalUSD(balances, prices);
                 <FaWallet className="text-lg" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Portfolio overview</p>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-400">Welcome back</p>
+                <p className="text-lg font-semibold text-white">
                   Good {new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'}, {user?.first_name}
                 </p>
               </div>
             </div>
 
-            <div className="mt-4 rounded-[18px] bg-gradient-to-br from-blue-500/5 to-purple-500/5 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <div className="mt-4 rounded-[18px]">
               <div className="w-full max-w-[20rem] sm:max-w-[22rem]">
                 <p className="text-[11px] uppercase tracking-[0.32em] text-slate-500">Total balance</p>
                 <p className="mt-1 font-display text-3xl sm:text-4xl font-semibold text-white leading-tight">

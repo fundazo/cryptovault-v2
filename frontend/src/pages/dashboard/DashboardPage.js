@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaArrowDown, FaArrowUp, FaBriefcase, FaHistory, FaPlus, FaWallet } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { userAPI, depositAPI, withdrawalAPI } from '../../utils/api';
 import { Card, Badge, Spinner, CryptoIcon, EmptyState } from '../../components/ui';
@@ -9,19 +10,21 @@ import { fetchPrices } from '../../utils/prices';
 
 const BalanceCard = ({ crypto, balance, price, change }) => {
   return (
-    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/3 border border-white/5 hover:bg-white/5 transition-all">
-      <CryptoIcon symbol={crypto.symbol} size="sm"/>
+    <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-gradient-to-r from-white/6 to-transparent p-3.5 transition-all hover:border-white/15 hover:bg-white/8">
+      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5">
+        <CryptoIcon symbol={crypto.symbol} size="sm"/>
+      </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-white truncate">{crypto.name}</p>
         <p className="text-xs text-slate-500 font-mono truncate">
-        {Number(balance).toLocaleString()} {crypto.symbol}
-      </p>
+          {Number(balance).toLocaleString()} {crypto.symbol}
+        </p>
       </div>
       <div className="text-right flex-shrink-0">
-      <p className="text-sm font-semibold text-white">
-      ${formatCompactNumber((balance || 0) * (price || 0))}
-      </p>
-   <p className={`text-xs font-medium ${change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>{change >= 0 ? '+' : ''}{Number(change || 0).toFixed(2)}%</p>
+        <p className="text-sm font-semibold text-white">
+          ${formatCompactNumber((balance || 0) * (price || 0))}
+        </p>
+        <p className={`text-xs font-medium ${change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>{change >= 0 ? '+' : ''}{Number(change || 0).toFixed(2)}%</p>
       </div>
     </div>
   );
@@ -30,8 +33,8 @@ const BalanceCard = ({ crypto, balance, price, change }) => {
 const TxRow = ({ tx }) => {
   const isPositive = tx.type === 'deposit' || tx.type === 'credit';
   return (
-    <div className="flex items-center gap-3 py-3 border-b border-white/5 last:border-0">
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0 ${isPositive ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+    <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/3 px-3 py-3 transition-all hover:bg-white/5">
+      <div className={`flex h-9 w-9 items-center justify-center rounded-2xl text-sm flex-shrink-0 ${isPositive ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
         {isPositive ? '↓' : '↑'}
       </div>
       <div className="flex-1 min-w-0">
@@ -49,8 +52,10 @@ const TxRow = ({ tx }) => {
 
 const MarketRow = ({ crypto, priceData }) => {
   return (
-    <div className="flex items-center gap-2 sm:gap-3 py-2.5 border-b border-white/5 last:border-0">
-      <CryptoIcon symbol={crypto.symbol} size="sm"/>
+    <div className="flex items-center gap-2 sm:gap-3 rounded-2xl border border-white/5 bg-white/3 px-2.5 py-2.5 transition-all hover:bg-white/5">
+      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/5">
+        <CryptoIcon symbol={crypto.symbol} size="sm"/>
+      </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-white">{crypto.symbol}</p>
         <p className="text-xs text-slate-600 hidden sm:block">{crypto.name}</p>
@@ -58,9 +63,9 @@ const MarketRow = ({ crypto, priceData }) => {
       <div className="text-right flex-shrink-0">
         <p className="text-sm font-semibold text-white">${priceData?.price?.toLocaleString()}</p>
         <p className={`text-xs font-medium ${priceData?.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-  {priceData?.change >= 0 ? '+' : ''}
-  {Number(priceData?.change || 0).toFixed(2)}%
-</p>
+          {priceData?.change >= 0 ? '+' : ''}
+          {Number(priceData?.change || 0).toFixed(2)}%
+        </p>
       </div>
     </div>
   );
@@ -103,46 +108,55 @@ const total = getTotalUSD(balances, prices);
   if (loading) return <div className="flex items-center justify-center h-64"><Spinner size="lg"/></div>;
 
   return (
-    <div className="space-y-4 sm:space-y-6 page-enter">
+    <div className="mx-auto w-full max-w-7xl space-y-4 sm:space-y-6 page-enter">
 
       {/* Hero card */}
-      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0f1d3a 0%, #0d1117 50%, #1a0a2e 100%)', border: '1px solid rgba(59,130,246,0.15)' }}>
-        <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"/>
-        <div className="relative z-10">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <p className="text-slate-400 text-xs sm:text-sm">
-                Good {new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'}, {user?.first_name} 👋
-              </p>
+      <div className="mx-auto w-full max-w-6xl rounded-[20px] border border-white/10 bg-[#0f172a] p-4 sm:p-5 lg:p-6">
+        <div className="flex flex-col gap-4">
+          <div className="min-w-0">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-blue-400 shadow-lg shadow-blue-500/10">
+                <FaWallet className="text-lg" />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-slate-400">Portfolio overview</p>
+                <p className="text-sm text-slate-400">
+                  Good {new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'}, {user?.first_name}
+                </p>
+              </div>
             </div>
-            <Link to="/dashboard/deposit">
-              <button className="btn-primary px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold flex-shrink-0">+ Deposit</button>
-            </Link>
-          </div>
 
-          <div>
-            <p className="text-slate-400 text-xs mb-1">Total Balance</p>
-            <p className="font-display text-2xl sm:text-4xl font-bold text-white">
-            ${formatCompactNumber(total)}
-            </p>
-            <p className="text-emerald-400 text-xs sm:text-sm mt-1 font-medium">↑ Portfolio value</p>
-          </div>
-
-          {/* Quick actions */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4 sm:mt-6">
-            {[
-              { label:'Deposit',  icon:'↓', to:'/dashboard/deposit',      color:'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
-              { label:'Withdraw', icon:'↑', to:'/dashboard/withdraw',     color:'bg-red-500/10 border-red-500/20 text-red-400' },
-              { label:'History',  icon:'⇄', to:'/dashboard/transactions', color:'bg-blue-500/10 border-blue-500/20 text-blue-400' },
-            ].map(a => (
-              <Link key={a.label} to={a.to}>
-                <div className={`rounded-xl border p-2.5 sm:p-3 flex flex-col items-center gap-1 transition-all cursor-pointer ${a.color}`}>
-                  <span className="text-lg sm:text-xl">{a.icon}</span>
-                  <span className="text-xs font-semibold">{a.label}</span>
+            <div className="mt-4 rounded-[18px] border border-white/10 bg-[#111827] p- sm:p-3">
+              <div className="w-full max-w-[20rem] sm:max-w-[22rem]">
+                <p className="text-[11px] uppercase tracking-[0.32em] text-slate-500">Total balance</p>
+                <p className="mt-1 font-display text-3xl sm:text-4xl font-semibold text-white leading-tight">
+                  ${formatCompactNumber(total)}
+                </p>
+                <div className="mt-3">
+                  <p className="text-sm text-slate-400">Your total portfolio value across connected wallets</p>
                 </div>
-              </Link>
-            ))}
+              </div>
+            </div>
+
+            <div className="mt-4 w-full  rounded-[18px] border border-white/10 bg-[#111827]/70 p-2.5 sm:p-3">
+  <div className="flex flex-row gap-2">
+    {[
+      { label:'Deposit', icon: FaArrowDown, to:'/dashboard/deposit', color:'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
+      { label:'Withdraw', icon: FaArrowUp, to:'/dashboard/withdraw', color:'bg-red-500/10 border-red-500/20 text-red-400' },
+      { label:'History', icon: FaHistory, to:'/dashboard/transactions', color:'bg-blue-500/10 border-blue-500/20 text-blue-400' },
+    ].map(a => {
+      const Icon = a.icon;
+      return (
+        <Link key={a.label} to={a.to} className="flex-1">
+          <div className={`flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl border px-3 py-2 text-center transition-all hover:-translate-y-0.5 ${a.color}`}>
+            <span className="flex items-center justify-center text-base"><Icon /></span>
+            <span className="whitespace-nowrap text-xs font-semibold">{a.label}</span>
+          </div>
+        </Link>
+      );
+    })}
+  </div>
+</div>
           </div>
         </div>
       </div>
@@ -155,7 +169,7 @@ const total = getTotalUSD(balances, prices);
             <Link to="/dashboard/portfolio" className="text-xs text-blue-400 hover:text-blue-300">View all →</Link>
           </div>
           {nonZero.length === 0 ? (
-            <EmptyState icon="💼" title="No balances yet" description="Make a deposit to get started"
+            <EmptyState icon={<FaBriefcase className="text-2xl" />} title="No balances yet" description="Make a deposit to get started"
               action={<Link to="/dashboard/deposit"><button className="btn-primary px-4 py-2 rounded-xl text-sm font-semibold">Deposit Now</button></Link>}/>
           ) : (
             <div className="space-y-2">

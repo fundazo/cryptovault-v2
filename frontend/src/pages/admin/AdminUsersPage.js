@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { adminAPI } from '../../utils/api';
 import { Card, Badge, Button, Input, Modal, Spinner, EmptyState, CryptoIcon } from '../../components/ui';
+import { FaSearch, FaUserShield } from 'react-icons/fa';
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -53,11 +54,11 @@ const AdminUsersPage = () => {
 
       <Card className="p-4">
         <Input placeholder="Search by name or email..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }}
-          icon={<span className="text-sm"></span>}/>
+          icon={<FaSearch className="text-sm" />} />
       </Card>
 
       <Card className="overflow-hidden">
-        {loading ? <Spinner className="py-16" size="lg"/> : users.length === 0 ? <EmptyState icon="👥" title="No users found"/> : (
+        {loading ? <Spinner className="py-16" size="lg"/> : users.length === 0 ? <EmptyState icon={<FaUserShield className="text-2xl" />} title="No users found"/> : (
           <>
             <div className="overflow-x-auto">
               <table className="w-full">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminAPI } from '../../utils/api';
-import { Card, StatCard, Spinner, Badge, CryptoIcon } from '../../components/ui';
+import { Card, StatCard, Spinner, CryptoIcon } from '../../components/ui';
+import { FaArrowDown, FaArrowUp, FaUsers, FaExchangeAlt, FaShieldAlt } from 'react-icons/fa';
 import { CRYPTOS, getTotalUSD, formatCompactNumber } from '../../utils/crypto';
 
 const AdminDashboard = () => {
@@ -35,15 +36,20 @@ const AdminDashboard = () => {
 
       {/* Stats — 1 col mobile, 2 col sm, 4 col lg */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard title="Total Users" value={stats?.users?.total||0} icon="👥" color="blue" subValue={`${stats?.users?.verified||0} verified`}/>
-        <StatCard title="Pending Deposits" value={stats?.deposits?.pending||0} icon="↓" color="yellow" subValue={`${stats?.deposits?.total||0} total`}/>
-        <StatCard title="Pending Withdrawals" value={stats?.withdrawals?.pending||0} icon="↑" color="red" subValue={`${stats?.withdrawals?.total||0} total`}/>
-        <StatCard title="Transactions" value={(parseInt(stats?.deposits?.total||0)+parseInt(stats?.withdrawals?.total||0)).toString()} icon="⇄" color="purple"/>
+        <StatCard title="Total Users" value={stats?.users?.total||0} icon={<FaUsers />} color="blue" subValue={`${stats?.users?.verified||0} verified`}/>
+        <StatCard title="Pending Deposits" value={stats?.deposits?.pending||0} icon={<FaArrowDown />} color="yellow" subValue={`${stats?.deposits?.total||0} total`}/>
+        <StatCard title="Pending Withdrawals" value={stats?.withdrawals?.pending||0} icon={<FaArrowUp />} color="red" subValue={`${stats?.withdrawals?.total||0} total`}/>
+        <StatCard title="Transactions" value={(parseInt(stats?.deposits?.total||0)+parseInt(stats?.withdrawals?.total||0)).toString()} icon={<FaExchangeAlt />} color="purple"/>
       </div>
 
       {/* Holdings */}
       <Card className="p-4 sm:p-5">
-        <h3 className="font-display font-semibold text-white mb-3 text-sm sm:text-base">Platform Holdings</h3>
+        <div className="mb-3 flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
+            <FaShieldAlt />
+          </div>
+          <h3 className="font-display font-semibold text-white text-sm sm:text-base">Platform Holdings</h3>
+        </div>
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {[
             { symbol:'BTC', balance: bal.total_btc, color:'text-orange-400' },

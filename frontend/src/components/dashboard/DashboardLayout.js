@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaBars, FaChartPie, FaHistory, FaHome, FaSignOutAlt, FaUserAlt, FaArrowDown, FaArrowUp, FaShieldAlt } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { userAPI } from '../../utils/api';
 import { CRYPTOS } from '../../utils/crypto';
 import { fetchPrices } from '../../utils/prices';
 
-const NavItem = ({ to, icon, label, badge, onClick, collapsed }) => {
+const NavItem = ({ to, icon: Icon, label, badge, onClick, collapsed }) => {
   const location = useLocation();
   const active = location.pathname === to || (to !== '/dashboard' && to !== '/admin' && location.pathname.startsWith(to));
 
   if (onClick) return (
     <button onClick={onClick} className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-500 hover:text-white hover:bg-white/5 ${collapsed ? 'justify-center' : ''}`}>
-      <span className="text-lg w-5 text-center flex-shrink-0">{icon}</span>
+      <span className="text-lg w-5 text-center flex-shrink-0"><Icon /></span>
       {!collapsed && <span>{label}</span>}
     </button>
   );
@@ -20,7 +21,7 @@ const NavItem = ({ to, icon, label, badge, onClick, collapsed }) => {
   return (
     <Link to={to} title={collapsed ? label : ''} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${collapsed ? 'justify-center' : ''}
       ${active ? 'bg-blue-500/10 text-blue-400 border border-blue-500/15' : 'text-slate-500 hover:text-white hover:bg-white/5'}`}>
-      <span className="text-lg w-5 text-center flex-shrink-0">{icon}</span>
+      <span className="text-lg w-5 text-center flex-shrink-0"><Icon /></span>
       {!collapsed && <><span className="flex-1">{label}</span>{badge > 0 && <span className="bg-blue-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">{badge > 9 ? '9+' : badge}</span>}</>}
     </Link>
    );
@@ -122,22 +123,22 @@ const DashboardLayout = ({ children }) => {
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const userNav = [
-    { to: '/dashboard',              icon: '⬡', label: 'Overview' },
-    { to: '/dashboard/portfolio',    icon: '◎', label: 'Portfolio' },
-    { to: '/dashboard/deposit',      icon: '↓', label: 'Deposit' },
-    { to: '/dashboard/withdraw',     icon: '↑', label: 'Withdraw' },
-    { to: '/dashboard/transactions', icon: '⇄', label: 'History' },
-    { to: '/dashboard/profile',      icon: '○', label: 'Profile' },
+    { to: '/dashboard', icon: FaHome, label: 'Overview' },
+    { to: '/dashboard/portfolio', icon: FaChartPie, label: 'Portfolio' },
+    { to: '/dashboard/deposit', icon: FaArrowDown, label: 'Deposit' },
+    { to: '/dashboard/withdraw', icon: FaArrowUp, label: 'Withdraw' },
+    { to: '/dashboard/transactions', icon: FaHistory, label: 'History' },
+    { to: '/dashboard/profile', icon: FaUserAlt, label: 'Profile' },
   ];
 
 const adminNav = [
-  { to: '/admin', icon: '⬡', label: 'Overview' },
-  { to: '/admin/users', icon: '◉', label: 'Users' },
-  { to: '/admin/deposits', icon: '↓', label: 'Deposits' },
-  { to: '/admin/withdrawals', icon: '↑', label: 'Withdrawals' },
-  { to: '/admin/transactions', icon: '⇄', label: 'Transactions' },
-  { to: '/admin/wallets', icon: '◎', label: 'Wallets' },
-  { to: '/change-password', icon: '⚙', label: 'Change Password' }
+  { to: '/admin', icon: FaHome, label: 'Overview' },
+  { to: '/admin/users', icon: FaUserAlt, label: 'Users' },
+  { to: '/admin/deposits', icon: FaArrowDown, label: 'Deposits' },
+  { to: '/admin/withdrawals', icon: FaArrowUp, label: 'Withdrawals' },
+  { to: '/admin/transactions', icon: FaHistory, label: 'Transactions' },
+  { to: '/admin/wallets', icon: FaChartPie, label: 'Wallets' },
+  { to: '/change-password', icon: FaShieldAlt, label: 'Change Password' }
 ];
 
   const navItems = isAdmin ? adminNav : userNav;
@@ -146,7 +147,9 @@ const adminNav = [
     <div className="flex flex-col h-full w-full">
       {/* Logo */}
       <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/5 ${collapsed ? 'justify-center' : ''}`}>
-        <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0 shadow-glow-blue">⬡</div>
+        <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0 shadow-glow-blue">
+          <FaShieldAlt className="text-sm" />
+        </div>
         {!collapsed && (
           <div className="min-w-0">
             <span className="font-display font-bold text-white text-lg leading-none">CryptoVault</span>
@@ -174,12 +177,8 @@ const adminNav = [
           </div>
         )}
         <button onClick={handleLogout} className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all ${collapsed ? 'justify-center' : ''}`}>
-          <span>⎋</span>
+          <FaSignOutAlt />
           {!collapsed && <span>Sign out</span>}
-        </button>
-        <button onClick={() => setCollapsed(c => !c)} className={`hidden lg:flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-xs text-slate-600 hover:text-slate-400 hover:bg-white/5 transition-all ${collapsed ? 'justify-center' : ''}`}>
-          <span>{collapsed ? '→' : '←'}</span>
-          {!collapsed && <span>Collapse</span>}
         </button>
       </div>
     </div>
@@ -192,7 +191,7 @@ const adminNav = [
 
       {/* Desktop Sidebar — fixed, hidden on mobile */}
       <aside className={`hidden lg:flex flex-col flex-shrink-0 border-r border-white/5 fixed inset-y-0 left-0 z-20 transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'}`}
-        style={{ background: 'rgba(8,11,20,0.97)', backdropFilter: 'blur(20px)' }}>
+        style={{ background: 'rgba(8,11,20,0.97)', backdropFilter: 'blur(20px)', width: collapsed ? 64 : 256 }}>
         <SidebarContent />
       </aside>
 
@@ -208,16 +207,14 @@ const adminNav = [
       )}
 
       {/* Main content area */}
-      <div className={`flex flex-col flex-1 min-h-screen min-w-0 transition-all duration-300 relative z-10 ${collapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
+      <div className={`flex flex-col flex-1 min-h-screen min-w-0 transition-all duration-300 relative z-10 ${collapsed ? 'lg:pl-[64px]' : 'lg:pl-[256px]'}`}>
         <PriceTicker />
 
         {/* Mobile topbar */}
         <header className="lg:hidden z-10 flex items-center justify-between px-4 py-3 border-b border-white/5"
           style={{ background: 'rgba(8,11,20,0.97)', backdropFilter: 'blur(20px)' }}>
           <button onClick={() => setSidebarOpen(true)} className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/5 transition-all">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
+            <FaBars className="h-5 w-5" />
           </button>
           <span className="font-display font-bold text-white">CryptoVault</span>
           <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white text-xs font-bold">

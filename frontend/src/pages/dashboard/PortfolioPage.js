@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { userAPI } from '../../utils/api';
 import { Card, CryptoIcon, Spinner } from '../../components/ui';
+import { FaChartPie } from 'react-icons/fa';
 import { CRYPTOS, getTotalUSD, formatCompactNumber } from '../../utils/crypto';
 import { fetchPrices } from '../../utils/prices';
 
@@ -51,11 +52,16 @@ const assets = CRYPTOS.map(c => {
       </div>
 
       {/* Total */}
-      <div className="rounded-2xl p-6 border border-blue-500/10 bg-gradient-to-br from-blue-500/5 to-purple-500/5">
-        <p className="text-slate- text-sm mb-1">Total Portfolio Value</p>
-        <p className="font-display text-3xl font-bold text-white">
-        ${formatCompactNumber(totalUSD)}
-        </p>
+      <div className="rounded-2xl border border-blue-500/10 bg-gradient-to-br from-blue-500/5 to-purple-500/5 p-5 sm:p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-blue-400">
+            <FaChartPie />
+          </div>
+          <div>
+            <p className="text-sm text-slate-400">Total Portfolio Value</p>
+            <p className="font-display text-2xl sm:text-3xl font-bold text-white">${formatCompactNumber(totalUSD)}</p>
+          </div>
+        </div>
       </div>
 
       {/* All assets */}

@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { userAPI } from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import { Button, Input, Card, Badge } from '../../components/ui';
+import { FaUserCircle } from 'react-icons/fa';
 
 const ProfilePage = () => {
   const { user, refreshUser } = useAuth();
@@ -36,9 +37,9 @@ const ProfilePage = () => {
       </div>
 
       {/* Avatar card */}
-      <div className="rounded-2xl p-5 border border-white/5 bg-gradient-to-r from-blue-500/5 to-purple-500/5 flex items-center gap-5">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center text-white font-display text-2xl font-bold shadow-glow-blue flex-shrink-0">
-          {user?.first_name?.[0]}{user?.last_name?.[0]}
+      <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-5 flex items-center gap-5">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-primary text-white shadow-glow-blue flex-shrink-0">
+          <FaUserCircle className="text-3xl" />
         </div>
         <div>
           <h2 className="font-display text-xl font-bold text-white">{user?.first_name} {user?.last_name}</h2>

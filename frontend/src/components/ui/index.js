@@ -114,9 +114,9 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
 };
 
 export const EmptyState = ({ icon, title, description, action }) => (
-  <div className="flex flex-col items-center justify-center py-10 text-center px-4">
-    <div className="text-3xl mb-2 opacity-50">{icon||'📭'}</div>
-    <h3 className="text-sm font-semibold text-slate-300 mb-1">{title}</h3>
+  <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/3 py-10 text-center px-4">
+    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-2xl text-slate-400">{icon || '📭'}</div>
+    <h3 className="text-sm font-semibold text-slate-200 mb-1">{title}</h3>
     {description && <p className="text-xs text-slate-600 mb-3 max-w-xs">{description}</p>}
     {action}
   </div>

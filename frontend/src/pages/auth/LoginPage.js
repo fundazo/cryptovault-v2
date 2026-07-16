@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { FaArrowRight, FaEnvelope, FaEye, FaEyeSlash, FaLock, FaShieldAlt } from 'react-icons/fa';
 import { authAPI } from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
-import { Button, Input } from '../../components/ui';
+import { Button } from '../../components/ui';
 
 const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -35,54 +36,65 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative" style={{ background: '#080b14' }}>
-      {/* Animated BG */}
+    <div className="min-h-screen flex items-center justify-center px-3 py-3 overflow-hidden relative" style={{ background: '#080b14' }}>
       <div className="app-bg"><div className="grid-overlay"/></div>
-
-      {/* Floating orbs */}
       <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"/>
       <div className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl pointer-events-none"/>
 
-      <div className="w-full max-w-sm relative z-10">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-primary rounded-2xl mb-4 shadow-glow-blue float-anim">
-            <span className="text-white text-2xl font-bold">⬡</span>
+      <div className="w-full max-w-[22rem] sm:max-w-[24rem] relative z-10">
+        <div className="text-center mb-5">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-primary rounded-2xl mb-3 shadow-glow-blue float-anim">
+            <FaShieldAlt className="text-white text-lg" />
           </div>
-          <h1 className="font-display text-3xl font-bold text-white">Welcome back</h1>
-          <p className="text-slate-500 mt-1 text-sm">Sign in to CryptoVault</p>
+          <h1 className="font-display text-2xl font-bold text-white">Welcome back</h1>
+          <p className="text-slate-500 mt-1 text-sm">Secure sign in to your CryptoVault account</p>
         </div>
 
-        <div className="glass-card p-6 glow-blue">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input label="Email" type="email" placeholder="you@example.com" value={form.email}
-              onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required
-            />
+        <div className="glass-card p-5 sm:p-6 glow-blue">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-400">Password</label>
-                <Link to="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</Link>
-              </div>
+              <label className="text-sm font-medium text-slate-400">Email</label>
               <div className="relative">
-                <input type={showPass ? 'text' : 'password'} placeholder="••••••••" value={form.password}
-                  onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required
-                  className="input-field pr-11"/>
-                <button type="button" onClick={() => setShowPass(s => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
-                  {showPass ? '🙈' : '👁'}
-                </button>
+                <div className="pointer-events-none absolute left-3.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg bg-slate-800/70 text-slate-400">
+                  <FaEnvelope className="text-sm" />
+                </div>
+                <input type="email" placeholder="you@example.com" value={form.email}
+                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required
+                  className="input-field pl-14 pr-11" autoComplete="email" />
               </div>
             </div>
 
-            <Button type="submit" className="w-full" size="lg" loading={loading}>Sign In</Button>
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium text-slate-400">Password</label>
+              <div className="relative">
+                <div className="pointer-events-none absolute left-3.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg bg-slate-800/70 text-slate-400">
+                  <FaLock className="text-sm" />
+                </div>
+                <input type={showPass ? 'text' : 'password'} placeholder="••••••••" value={form.password}
+                  onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required
+                  className="input-field pl-14 pr-11" autoComplete="current-password" />
+                <button type="button" onClick={() => setShowPass(s => !s)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
+                  {showPass ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              <div className="flex justify-end">
+                <Link to="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</Link>
+              </div>
+            </div>
+
+            <Button type="submit" className="w-full" size="lg" loading={loading}>
+              <span>Sign In</span>
+              <FaArrowRight className="text-sm" />
+            </Button>
           </form>
 
-          <div className="mt-5 pt-5 border-t border-white/5 text-center">
+          <div className="mt-4 pt-4 border-t border-white/5 text-center">
             <p className="text-sm text-slate-500">No account? <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">Create one free</Link></p>
           </div>
         </div>
 
-        <p className="text-center text-xs text-slate-700 mt-6">🔒 256-bit SSL encrypted · Your funds are protected</p>
+        <p className="text-center text-xs text-slate-700 mt-4">256-bit SSL encrypted · Your funds are protected</p>
       </div>
     </div>
   );

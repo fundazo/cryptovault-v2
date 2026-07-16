@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaShieldAlt } from 'react-icons/fa';
 import { authAPI } from '../../utils/api';
-import { Button, Input } from '../../components/ui';
+import { Button } from '../../components/ui';
 
 const RegisterPage = () => {
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', password: '', confirm_password: '' });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const set = field => e => setForm(f => ({ ...f, [field]: e.target.value }));
 
@@ -48,32 +51,64 @@ const RegisterPage = () => {
 
       <div className="w-full max-w-sm relative z-10">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-primary rounded-2xl mb-4 shadow-glow-blue">
-            <span className="text-white text-2xl">⬡</span>
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-primary rounded-2xl mb-3 shadow-glow-blue float-anim">
+            <FaShieldAlt className="text-white text-lg" />
           </div>
-          <h1 className="font-display text-3xl font-bold text-white">Create account</h1>
+          <h1 className="font-display text-2xl font-bold text-white">Create account</h1>
           <p className="text-slate-500 mt-1 text-sm">Join 100,000+ crypto traders</p>
         </div>
 
         <div className="glass-card p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <Input label="First name" placeholder="John" value={form.first_name} onChange={set('first_name')} required />
-              <Input label="Last name" placeholder="Doe" value={form.last_name} onChange={set('last_name')} required />
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-slate-400">First name</label>
+                <input placeholder="John" value={form.first_name} onChange={set('first_name')} required className="w-full rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-slate-400">Last name</label>
+                <input placeholder="Doe" value={form.last_name} onChange={set('last_name')} required className="w-full rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none" />
+              </div>
             </div>
-            <Input label="Email" type="email" placeholder="you@example.com" value={form.email} onChange={set('email')} required />
+
             <div className="space-y-1.5">
-              <Input label="Password" type="password" placeholder="Min. 8 characters" value={form.password} onChange={set('password')} required />
+              <label className="text-sm font-medium text-slate-400">Email</label>
+              <div className="flex items-center rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3">
+                <FaEnvelope className="mr-3 text-slate-500" />
+                <input type="email" placeholder="you@example.com" value={form.email} onChange={set('email')} required className="w-full bg-transparent p-0 text-sm text-slate-100 placeholder:text-slate-500 outline-none" autoComplete="email" />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium text-slate-400">Password</label>
+              <div className="flex items-center rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3">
+                <FaLock className="mr-3 text-slate-500" />
+                <input type={showPassword ? 'text' : 'password'} placeholder="Min. 8 characters" value={form.password} onChange={set('password')} required className="w-full bg-transparent p-0 pr-8 text-sm text-slate-100 placeholder:text-slate-500 outline-none" autoComplete="new-password" />
+                <button type="button" onClick={() => setShowPassword(v => !v)} className="ml-2 text-slate-500 transition-colors hover:text-slate-300" aria-label="Toggle password visibility">
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
               {form.password && (
                 <div className="space-y-1">
                   <div className="flex gap-1">
-                    {[1,2,3,4,5].map(i => <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i <= strength ? strengthInfo?.color : 'bg-white/10'}`}/>)}
+                    {[1,2,3,4,5].map(i => <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i <= strength ? strengthInfo?.color : 'bg-white/10'}`}/>) }
                   </div>
                   <p className="text-xs text-slate-600">Strength: <span className="text-slate-400">{strengthInfo?.label}</span></p>
                 </div>
               )}
             </div>
-            <Input label="Confirm password" type="password" placeholder="Repeat password" value={form.confirm_password} onChange={set('confirm_password')} required />
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium text-slate-400">Confirm password</label>
+              <div className="flex items-center rounded-xl border border-white/10 bg-[#0d1117] px-3.5 py-3">
+                <FaLock className="mr-3 text-slate-500" />
+                <input type={showConfirmPassword ? 'text' : 'password'} placeholder="Repeat password" value={form.confirm_password} onChange={set('confirm_password')} required className="w-full bg-transparent p-0 pr-8 text-sm text-slate-100 placeholder:text-slate-500 outline-none" autoComplete="new-password" />
+                <button type="button" onClick={() => setShowConfirmPassword(v => !v)} className="ml-2 text-slate-500 transition-colors hover:text-slate-300" aria-label="Toggle confirm password visibility">
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+            </div>
+
             <Button type="submit" className="w-full mt-2" size="lg" loading={loading}>Create Account</Button>
           </form>
 

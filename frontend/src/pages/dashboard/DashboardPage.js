@@ -126,7 +126,7 @@ const total = getTotalUSD(balances, prices);
               </div>
             </div>
 
-            <div className="mt-4 rounded-[18px] border border-white/10 bg-[#111827] p- sm:p-3">
+            <div className="mt-4 rounded-[18px] bg-gradient-to-br from-blue-500/5 to-purple-500/5 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
               <div className="w-full max-w-[20rem] sm:max-w-[22rem]">
                 <p className="text-[11px] uppercase tracking-[0.32em] text-slate-500">Total balance</p>
                 <p className="mt-1 font-display text-3xl sm:text-4xl font-semibold text-white leading-tight">
@@ -138,7 +138,7 @@ const total = getTotalUSD(balances, prices);
               </div>
             </div>
 
-            <div className="mt-4 w-full  rounded-[18px] border border-white/10 bg-[#111827]/70 p-2.5 sm:p-3">
+            <div className="mt-4 w-full  rounded-[18px] ">
   <div className="flex flex-row gap-2">
     {[
       { label:'Deposit', icon: FaArrowDown, to:'/dashboard/deposit', color:'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },

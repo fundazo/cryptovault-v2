@@ -108,7 +108,6 @@ const PriceTicker = () => {
   );
 };
 
-
 const DashboardLayout = ({ children }) => {
   const { user, logout, isAdmin } = useAuth();
   const { isDark, toggleTheme } = useTheme();
